@@ -1,0 +1,29 @@
+#pull python official image
+FROM python:3.10.12-slim-buster
+
+# setting working directory
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+#setting enivronment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+#install python dependencies
+RUN pip install --upgrade pip
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt
+
+#install system dependencies
+RUN apt-get update \
+&& apt-get clean 
+
+#used this package for database setup
+ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /usr/local/bin/wait-for-it
+RUN chmod +x /usr/local/bin/wait-for-it
+
+#expose port
+EXPOSE 8000
+
+#copy app
+COPY . .

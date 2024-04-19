@@ -1,0 +1,10 @@
+# pull official base image
+FROM mysql:8.0.36-debian
+
+#setting database dependencies
+RUN apt-get update \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# run create.sql on init
+ADD ./db/create.sql /docker-entrypoint-initdb.d
