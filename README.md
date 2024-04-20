@@ -1,5 +1,7 @@
 # FastAPI Backend Wobot Assignment
 
+📋 [**Todo List App**]
+
 ## Technology Stack and Features
 
 - ⚡ [**FastAPI**](https://fastapi.tiangolo.com) for the Python backend API.
@@ -23,16 +25,18 @@ You can **just fork or clone** this repository and use it as is.
 ### Configure
 
 ```bash
-doker-compose up --build
+docker-compose up --build
 ```
 
 **Note**: The first time you start your stack, it might take a minute for it to be ready. While the backend waits for the database to be ready and configures everything. You can check the logs to monitor it.
 
 * The project includes automatic database migrations.
 
-* Now you can open your browser and interact with:
-
 Automatic interactive documentation with Swagger UI (from the OpenAPI backend): http://127.0.0.1:8000/docs
+
+### Future scope:
+- Tests can be added for endpoints.
+- Endpoints can me made more secure.
 
 ### Note
 - The .env file contains some basic secrets for easy configuration. You can update/change if you want to.

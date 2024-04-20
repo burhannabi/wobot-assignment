@@ -99,7 +99,7 @@ async def update_task(
         raise InternalServerError(e)
 
 
-@router.delete("/{task_id}", status_code=status.HTTP_200_OK, operation_id="delete-task", response_model=TaskOut)
+@router.delete("/{task_id}", status_code=status.HTTP_202_ACCEPTED, operation_id="delete-task", response_model=TaskOut)
 async def delete_task(
     task_id: int,
     current_user: UserIn = Depends(get_current_user),
