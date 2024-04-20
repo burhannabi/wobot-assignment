@@ -8,6 +8,7 @@ services:
     #added wait-for-it to wait for db initialization
     command: ["wait-for-it", "-t", "60", "mysql:3306", "--", "bash", "-c", "uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --workers 1"]
     restart: always
+    #don't use bind mount in production
     volumes:
       - ./:/usr/src/app
     ports:
