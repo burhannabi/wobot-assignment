@@ -1,5 +1,5 @@
-CREATE DATABASE posts_db;
+CREATE DATABASE todo_db;
 
-CREATE USER 'wobot_user'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'wobot';
+CREATE USER 'wobot_user' IDENTIFIED WITH caching_sha2_password BY 'wobot';
 
-GRANT ALL PRIVILEGES ON posts_db.* TO 'wobot_user'@'localhost';
+GRANT ALL PRIVILEGES ON todo_db.* TO 'wobot_user';

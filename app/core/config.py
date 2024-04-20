@@ -1,20 +1,20 @@
 import logging
-import os
 from functools import lru_cache
-
-from pydantic import BaseModel, AnyUrl
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 log = logging.getLogger("uvicorn")
 
+"""
+Setup environment variables
+"""
 
-class OAuth2Settings(BaseModel):
+class OAuth2Settings(BaseSettings):
     SECRET_KEY: str
     ALGORITHM: str
     TOKEN_EXPIRE_MINUTES: int
 
 
-class Settings(BaseSettings):
+class Settings(OAuth2Settings, BaseSettings):
     ENVIRONMENT: str = "dev"
     DATABASE_URI: str
 

@@ -5,6 +5,7 @@ services:
       dockerfile: ./Dockerfiles/Dockerfile.api
       context: ./
     container_name: api
+    #added wait-for-it to wait for db initialization
     command: ["wait-for-it", "-t", "60", "mysql:3306", "--", "bash", "-c", "uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --workers 1"]
     restart: always
     volumes:
@@ -13,18 +14,22 @@ services:
       - 8000:8000
     depends_on:
       - mysql
-    # environment:
-    #   - ENVIRONMENT=dev
-    #   - TESTING=0
 
   mysql:
     build:
       dockerfile: ./Dockerfiles/Dockerfile.db
       context: ./
     container_name: mysql
-    # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
-    # (this is just an example, not intended to be a production configuration)
+    #changed password athentication from native to sha2
     command: --default-authentication-plugin=caching_sha2_password
     restart: on-failure:3
     environment:
       - MYSQL_ROOT_PASSWORD=${ROOT_PASSWORD}
+    cap_add:
+      - SYS_NICE
+    #mysql data volume to persist db data
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
